@@ -30,7 +30,7 @@ KTLINT_JAR = os.path.join(MAIN_DIRECTORY, 'ktlint-android-all.jar')
 
 def main(args=None):
   parser = argparse.ArgumentParser()
-  parser.add_argument('--file', '-f', nargs='+')
+  parser.add_argument('--file', '-f', nargs='*')
   args = parser.parse_args()
   kotlin_files = [f for f in args.file if f.endswith('.kt')]
   if not kotlin_files:
