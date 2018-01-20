@@ -31,15 +31,20 @@ KTLINT_JAR = os.path.join(MAIN_DIRECTORY, 'ktlint-android-all.jar')
 def main(args=None):
   parser = argparse.ArgumentParser()
   parser.add_argument('--file', '-f', nargs='*')
+  parser.add_argument('--format', '-F', dest='format', action='store_true')
+  parser.add_argument('--noformat', dest='format', action='store_false')
+  parser.set_defaults(format=False)
   args = parser.parse_args()
-  kotlin_files = [f for f in args.file if f.endswith('.kt')]
-  if not kotlin_files:
+  ktlint_args = [f for f in args.file if f.endswith('.kt')]
+  if args.format:
+    ktlint_args += ['-F']
+  if not ktlint_args:
     sys.exit(0)
 
   ktlint_env = os.environ.copy()
   ktlint_env['JAVA_CMD'] = 'java'
   try:
-    check = subprocess.Popen(['java', '-jar', KTLINT_JAR] + kotlin_files,
+    check = subprocess.Popen(['java', '-jar', KTLINT_JAR] + ktlint_args,
                              stdout=subprocess.PIPE, env=ktlint_env)
     stdout, _ = check.communicate()
     if stdout:
