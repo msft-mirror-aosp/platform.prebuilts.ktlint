@@ -26,6 +26,12 @@ import sys
 
 MAIN_DIRECTORY = os.path.normpath(os.path.dirname(__file__))
 KTLINT_JAR = os.path.join(MAIN_DIRECTORY, 'ktlint-android-all.jar')
+FORMAT_MESSAGE = '''
+**********************************************************************
+To format run:
+{}/ktlint.py --format --file {}
+**********************************************************************
+'''
 
 
 def main(args=None):
@@ -35,7 +41,8 @@ def main(args=None):
   parser.add_argument('--noformat', dest='format', action='store_false')
   parser.set_defaults(format=False)
   args = parser.parse_args()
-  ktlint_args = [f for f in args.file if f.endswith('.kt')]
+  kt_files = [f for f in args.file if f.endswith('.kt') or f.endswith('.kts')]
+  ktlint_args = kt_files[:]
   if args.format:
     ktlint_args += ['-F']
   if not ktlint_args:
@@ -50,6 +57,7 @@ def main(args=None):
     if stdout:
       print 'prebuilts/ktlint found errors in files you changed:'
       print stdout
+      print FORMAT_MESSAGE.format(MAIN_DIRECTORY, ' '.join(kt_files))
       sys.exit(1)
     else:
       sys.exit(0)
