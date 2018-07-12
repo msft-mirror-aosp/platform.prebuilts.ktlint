@@ -48,6 +48,8 @@ def main(args=None):
   if not ktlint_args:
     sys.exit(0)
 
+  ktlint_args += ['--android']
+
   ktlint_env = os.environ.copy()
   ktlint_env['JAVA_CMD'] = 'java'
   try:
