@@ -25,7 +25,7 @@ import subprocess
 import sys
 
 MAIN_DIRECTORY = os.path.normpath(os.path.dirname(__file__))
-KTLINT_JAR = os.path.join(MAIN_DIRECTORY, 'ktlint-android-all.jar')
+KTLINT_JAR = os.path.join(MAIN_DIRECTORY, 'ktlint-android-all.r4a.jar')
 FORMAT_MESSAGE = '''
 **********************************************************************
 To format run:
