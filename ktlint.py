@@ -18,8 +18,6 @@
 
 """Script that is used by developers to run style checks on Kotlin files."""
 
-from __future__ import print_function
-
 import argparse
 import errno
 import os
@@ -59,15 +57,15 @@ def main(args=None):
                              stdout=subprocess.PIPE, env=ktlint_env)
     stdout, _ = check.communicate()
     if stdout:
-      print('prebuilts/ktlint found errors in files you changed:')
-      print(stdout)
-      print(FORMAT_MESSAGE.format(MAIN_DIRECTORY, ' '.join(kt_files)))
+      print 'prebuilts/ktlint found errors in files you changed:'
+      print stdout
+      print FORMAT_MESSAGE.format(MAIN_DIRECTORY, ' '.join(kt_files))
       sys.exit(1)
     else:
       sys.exit(0)
   except OSError as e:
     if e.errno == errno.ENOENT:
-      print('Error running ktlint!')
+      print 'Error running ktlint!'
       sys.exit(1)
 
 if __name__ == '__main__':
