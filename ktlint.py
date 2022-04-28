@@ -60,7 +60,7 @@ def main(args=None):
     stdout, _ = check.communicate()
     if stdout:
       print('prebuilts/ktlint found errors in files you changed:')
-      print(stdout)
+      print(stdout.decode('utf-8'))
       print(FORMAT_MESSAGE.format(MAIN_DIRECTORY, ' '.join(kt_files)))
       sys.exit(1)
     else:
