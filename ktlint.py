@@ -28,6 +28,7 @@ import sys
 
 MAIN_DIRECTORY = os.path.normpath(os.path.dirname(__file__))
 KTLINT_JAR = os.path.join(MAIN_DIRECTORY, 'ktlint-android-all.jar')
+EDITOR_CONFIG = os.path.join(MAIN_DIRECTORY, '.editorconfig')
 FORMAT_MESSAGE = '''
 **********************************************************************
 To format run:
@@ -45,6 +46,7 @@ def main(args=None):
   args = parser.parse_args()
   kt_files = [f for f in args.file if f.endswith('.kt') or f.endswith('.kts')]
   ktlint_args = kt_files[:]
+  ktlint_args += ['--editorconfig', EDITOR_CONFIG]
   if args.format:
     ktlint_args += ['-F']
   if not ktlint_args:
