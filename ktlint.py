@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python
 
 #
 # Copyright 2017, The Android Open Source Project
@@ -60,7 +60,7 @@ def main(args=None):
     stdout, _ = check.communicate()
     if stdout:
       print('prebuilts/ktlint found errors in files you changed:')
-      print(stdout.decode('utf-8'))
+      print(stdout)
       print(FORMAT_MESSAGE.format(MAIN_DIRECTORY, ' '.join(kt_files)))
       sys.exit(1)
     else:
