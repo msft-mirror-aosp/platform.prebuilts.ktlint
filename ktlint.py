@@ -42,14 +42,25 @@ def main(args=None):
   parser.add_argument('--file', '-f', nargs='*')
   parser.add_argument('--format', '-F', dest='format', action='store_true')
   parser.add_argument('--noformat', dest='format', action='store_false')
-  parser.set_defaults(format=False)
+  parser.add_argument('--no-verify-format', dest='verify_format', action='store_false')
+  parser.set_defaults(format=False, verify_format=True)
   args = parser.parse_args()
   kt_files = [f for f in args.file if f.endswith('.kt') or f.endswith('.kts')]
   if not kt_files:
     sys.exit(0)
 
+  disabled_rules = ['indent', 'paren-spacing', 'curly-spacing', 'wrapping']
+
+  # Disable more format-related rules if we shouldn't verify the format. This is usually
+  # the case if files we are checking are already checked by ktfmt.
+  if not args.verify_format:
+      disabled_rules += ['final-newline', 'no-consecutive-blank-lines', 'import-ordering']
+
   ktlint_args = kt_files[:]
   ktlint_args += ['--editorconfig', EDITOR_CONFIG]
+  ktlint_args += ['--disabled_rules=' + ','.join(disabled_rules)]
+
+  # Automatically format files if requested.
   if args.format:
     ktlint_args += ['-F']
 
@@ -64,7 +75,8 @@ def main(args=None):
     if stdout:
       print('prebuilts/ktlint found errors in files you changed:')
       print(stdout.decode('utf-8'))
-      print(FORMAT_MESSAGE.format(MAIN_DIRECTORY, ' '.join(kt_files)))
+      if (args.verify_format):
+        print(FORMAT_MESSAGE.format(MAIN_DIRECTORY, ' '.join(kt_files)))
       sys.exit(1)
     else:
       sys.exit(0)
