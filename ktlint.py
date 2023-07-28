@@ -50,7 +50,9 @@ def main(args=None):
   if not kt_files:
     sys.exit(0)
 
-  disabled_rules = ['indent', 'paren-spacing', 'curly-spacing', 'wrapping']
+  disabled_rules = ['indent', 'paren-spacing', 'curly-spacing', 'wrapping',
+                    # trailing-comma requires wrapping
+                    'trailing-comma-on-call-site', 'trailing-comma-on-declaration-site']
 
   # Disable more format-related rules if we shouldn't verify the format. This is usually
   # the case if files we are checking are already checked by ktfmt.
@@ -68,12 +70,10 @@ def main(args=None):
   if args.format:
     ktlint_args += ['-F']
 
-  ktlint_args += ['--android']
-
   ktlint_env = os.environ.copy()
   ktlint_env['JAVA_CMD'] = 'java'
   try:
-    check = subprocess.Popen(['java', '-jar', KTLINT_JAR] + ktlint_args,
+    check = subprocess.Popen(['java', '--add-opens=java.base/java.lang=ALL-UNNAMED', '-jar', KTLINT_JAR] + ktlint_args,
                              stdout=subprocess.PIPE, env=ktlint_env)
     stdout, _ = check.communicate()
     if stdout:
