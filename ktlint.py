@@ -52,7 +52,9 @@ def main(args=None):
 
   disabled_rules = ['indent', 'paren-spacing', 'curly-spacing', 'wrapping',
                     # trailing-comma requires wrapping
-                    'trailing-comma-on-call-site', 'trailing-comma-on-declaration-site']
+                    'trailing-comma-on-call-site', 'trailing-comma-on-declaration-site',
+                    # annotations requires wrapping
+                    'spacing-between-declarations-with-annotations', 'annotation']
 
   # Disable more format-related rules if we shouldn't verify the format. This is usually
   # the case if files we are checking are already checked by ktfmt.
