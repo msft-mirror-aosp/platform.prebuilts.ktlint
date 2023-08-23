@@ -72,6 +72,7 @@ def main(args=None):
         'final-newline',
         'no-consecutive-blank-lines',
         'import-ordering',
+        'comment-wrapping',
     ]
 
   ktlint_args = kt_files[:]
