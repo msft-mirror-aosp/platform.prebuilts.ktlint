@@ -76,6 +76,7 @@ def main(args=None):
         'argument-list-wrapping',
         'spacing-between-declarations-with-comments',
         'annotation-spacing',
+        'multiline-if-else',
     ]
 
   ktlint_args = kt_files[:]
