@@ -43,6 +43,7 @@ def main(args=None):
   parser.add_argument('--format', '-F', dest='format', action='store_true')
   parser.add_argument('--noformat', dest='format', action='store_false')
   parser.add_argument('--no-verify-format', dest='verify_format', action='store_false')
+  parser.add_argument('--editorconfig', default=EDITOR_CONFIG)
   parser.set_defaults(format=False, verify_format=True)
   args = parser.parse_args()
   kt_files = [f for f in args.file if f.endswith('.kt') or f.endswith('.kts')]
@@ -57,8 +58,11 @@ def main(args=None):
       disabled_rules += ['final-newline', 'no-consecutive-blank-lines', 'import-ordering']
 
   ktlint_args = kt_files[:]
-  ktlint_args += ['--editorconfig', EDITOR_CONFIG]
   ktlint_args += ['--disabled_rules=' + ','.join(disabled_rules)]
+
+  # Setup editor config explicitly if defined - else will inherit from tree
+  if args.editorconfig is not None:
+      ktlint_args += ['--editorconfig', args.editorconfig]
 
   # Automatically format files if requested.
   if args.format:
