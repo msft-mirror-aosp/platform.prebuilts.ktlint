@@ -4,9 +4,4 @@ max_line_length = 100
 trim_trailing_whitespace = true
 insert_final_newline = true
 ij_kotlin_imports_layout=*
-
-# Comma-separated list of rules to disable
-# ktlint disagrees on indentation with ktfmt in some cases
-# TODO(b/185904220): paren spacing disabled because of a ktfmt bug
-# TODO(b/189506168): curly spacing disabled because of a ktfmt bug
-disabled_rules=indent,paren-spacing,curly-spacing,wrapping
+ij_kotlin_packages_to_use_import_on_demand=kotlinx.android.synthetic.**
