@@ -69,14 +69,19 @@ def main(args=None):
   # the case if files we are checking are already checked by ktfmt.
   if not args.verify_format:
     disabled_rules += [
-        'final-newline',
-        'no-consecutive-blank-lines',
-        'import-ordering',
-        'comment-wrapping',
-        'argument-list-wrapping',
-        'spacing-between-declarations-with-comments',
+        # Please keep sorted.
         'annotation-spacing',
+        'argument-list-wrapping',
+        'block-comment-initial-star-alignment',
+        'chain-wrapping',
+        'comment-wrapping',
+        'final-newline',
+        'import-ordering',
         'multiline-if-else',
+        'no-consecutive-blank-lines',
+        'no-empty-first-line-in-method-block',
+        'parameter-list-wrapping',
+        'spacing-between-declarations-with-comments',
     ]
 
   ktlint_args = kt_files[:]
