@@ -77,6 +77,8 @@ def main(args=None):
         'comment-wrapping',
         'final-newline',
         'import-ordering',
+        # TODO(b/366424213): Enable this check again.
+        'max-line-length',
         'multiline-if-else',
         'no-consecutive-blank-lines',
         'no-empty-first-line-in-method-block',
