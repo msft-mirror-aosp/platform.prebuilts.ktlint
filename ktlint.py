@@ -45,6 +45,9 @@ def main(args=None):
   parser.add_argument(
       '--no-verify-format', dest='verify_format', action='store_false'
   )
+  parser.add_argument(
+      '--disabled-rules', dest='disabled_rules'
+  )
   parser.add_argument('--editorconfig', default=EDITOR_CONFIG)
   parser.set_defaults(format=False, verify_format=True)
   args = parser.parse_args()
@@ -69,15 +72,26 @@ def main(args=None):
   # the case if files we are checking are already checked by ktfmt.
   if not args.verify_format:
     disabled_rules += [
-        'final-newline',
-        'no-consecutive-blank-lines',
-        'import-ordering',
-        'comment-wrapping',
-        'argument-list-wrapping',
-        'spacing-between-declarations-with-comments',
+        # Please keep sorted.
         'annotation-spacing',
+        'argument-list-wrapping',
+        'block-comment-initial-star-alignment',
+        'chain-wrapping',
+        'comment-wrapping',
+        'final-newline',
+        'import-ordering',
+        # TODO(b/366424213): Enable this check again.
+        'max-line-length',
         'multiline-if-else',
+        'no-consecutive-blank-lines',
+        'no-empty-first-line-in-method-block',
+        'parameter-list-wrapping',
+        'spacing-between-declarations-with-comments',
     ]
+
+  if args.disabled_rules:
+    additional_rules = args.disabled_rules.split(",")
+    disabled_rules.extend(rule for rule in additional_rules if rule not in disabled_rules)
 
   ktlint_args = kt_files[:]
   ktlint_args += ['--disabled_rules=' + ','.join(disabled_rules)]
