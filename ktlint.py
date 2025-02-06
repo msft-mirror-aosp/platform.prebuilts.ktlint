@@ -86,6 +86,7 @@ def main(args=None):
         'no-consecutive-blank-lines',
         'no-empty-first-line-in-method-block',
         'parameter-list-wrapping',
+        'parameter-wrapping',
         'spacing-between-declarations-with-comments',
     ]
 
