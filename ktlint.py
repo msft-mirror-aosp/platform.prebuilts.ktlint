@@ -79,6 +79,7 @@ def main(args=None):
         'chain-wrapping',
         'comment-wrapping',
         'final-newline',
+        'function-return-type-spacing',
         'import-ordering',
         # TODO(b/366424213): Enable this check again.
         'max-line-length',
